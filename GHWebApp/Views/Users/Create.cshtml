@@ -1,0 +1,32 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityUser
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<style type="text/css">
+    #tbrole, .c {
+        border: double;
+    }
+</style>
+
+
+@using (Html.BeginForm())
+{
+    <table id="tbrole">
+        <tr>
+            <td class="c">Enter User Name To be Created:</td>
+            <td class="c">
+                @Html.EditorFor(m => m.UserName)
+            </td>
+            <td class="c">
+                @Html.EditorFor(m => m.Email)
+            </td>
+
+
+
+        </tr>
+    </table>
+    <input type="submit" value="Create User" />
+}

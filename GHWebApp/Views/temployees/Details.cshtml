@@ -1,0 +1,122 @@
+﻿@model GHWebApp.temployees
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>temployees</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tdepts.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tdepts.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.texps.JobName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.texps.JobName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tjobs.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tjobs.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tlangs.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tlangs.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tskills.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tskills.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ttrainings.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ttrainings.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ttype.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ttype.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RealID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RealID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Recommended)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recommended)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDEmployees }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

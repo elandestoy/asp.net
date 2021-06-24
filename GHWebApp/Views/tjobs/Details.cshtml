@@ -1,0 +1,58 @@
+﻿@model GHWebApp.tjobs
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tjobs</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.trisks.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.trisks.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MinSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDJobs }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

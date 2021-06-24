@@ -1,0 +1,105 @@
+﻿@model IEnumerable<GHWebApp.temployees>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.tdepts.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.texps.JobName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tjobs.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tlangs.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tskills.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ttrainings.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ttype.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RealID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salary)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Recommended)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tdepts.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.texps.JobName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tjobs.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tlangs.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tskills.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ttrainings.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ttype.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RealID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Salary)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Recommended)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDEmployees }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDEmployees }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDEmployees })
+        </td>
+    </tr>
+}
+
+</table>

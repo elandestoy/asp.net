@@ -1,0 +1,41 @@
+﻿@*@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityUser>*@
+
+@model GHWebApp.Models.UserViewModel
+
+@{ ViewBag.Title = "Index"; }
+
+<h2>Available Roles For Application</h2>
+
+@Html.ActionLink("Create User", "Create", "Users")
+
+<style type="text/css">
+    #tbrole, .c {
+        border: double;
+    }
+</style>
+
+
+<div class="row">
+    <h4>Users</h4>
+    @foreach (var user in model.tdepts.Name)
+    {
+        <p>
+            <strong>
+                @user.Username <br />
+                @user.Email<br />
+                @user.RoleName
+            </strong>
+        </p>
+    }
+    <h4>Advisers</h4>
+    @foreach (var usera in Model.Admins)
+    {
+        <p>
+            <strong>
+                @usera.Username <br />
+                @usera.Email<br />
+                @usera.RoleName
+            </strong>
+        </p>
+    }
+</div>
