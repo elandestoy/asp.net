@@ -75,7 +75,9 @@ namespace GHWebApp.Controllers
                 return View(model);
             }
 
-            ApplicationDbContext context;
+            Session["RolNa"] = "";
+
+           ApplicationDbContext context;
             context = new ApplicationDbContext();
 
             // This doesn't count login failures towards account lockout
@@ -102,6 +104,8 @@ namespace GHWebApp.Controllers
 
                   
                     ViewBag.vRolName = usersWithRoles.RoleName;
+
+                    Session["RolNa"] = usersWithRoles.RoleName;
 
                     return RedirectToLocal(returnUrl);
 
@@ -459,7 +463,8 @@ namespace GHWebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session["RolNa"] = "Applicant";
+           AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
 

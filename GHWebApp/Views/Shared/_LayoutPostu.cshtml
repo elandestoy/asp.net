@@ -96,41 +96,26 @@
                         @Html.ActionLink("About", "About", "Home")
                         @Html.ActionLink("Contact", "Contact", "Home")
 
-                        @if (ViewBag.vRolName == "Manager")
-                        {
-                            <div class="mydropdown">
-                                <button class="mydropbtn">
-                                    Employee
-                                    <i class="fa fa-caret-down"></i>
-                                </button>
-                                <div class="mydropdown-content">
-
-                                    @Html.ActionLink("Jobs", "", "tjobs")
-                                    @Html.ActionLink("Evaluate Applicant", "", "temployees")
-
-                                </div>
-                            </div>
-                        }
-                        <div class="mydropdown">
+                          <div class="mydropdown">
                             <button class="mydropbtn">
-                                Applicant
+                                Employee
                                 <i class="fa fa-caret-down"></i>
                             </button>
                             <div class="mydropdown-content">
 
-
-                                @Html.ActionLink("Summit Application", "Create", "temployees")
+                                
+                                @Html.ActionLink("Evaluate Applicant", "Create", "temployees")
 
                             </div>
                         </div>
-                        @*   <div class="mydropdown">
-            <button class="mydropbtn">
-                Applicant
-                <i class="fa fa-caret-down"></i>
-            </button>
-
-        </div>*@
-
+                     @*   <div class="mydropdown">
+                            <button class="mydropbtn">
+                                Applicant
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                         
+                        </div>*@
+                        
                     </div>
 
                 </ul>

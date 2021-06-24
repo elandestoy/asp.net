@@ -7,15 +7,17 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GHWebApp;
+using GHWebApp.Helpers;
 
 namespace GHWebApp.Controllers
 {
-    [Authorize]
+    [AuthorizeRoles(RolesUser.Administrator, RolesUser.rApplicant, RolesUser.rManager)]
     public class ttrainingsController : Controller
     {
         private Model1 db = new Model1();
 
         // GET: ttrainings
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.rApplicant, RolesUser.rManager)]
         public ActionResult Index()
         {
             var ttrainings = db.ttrainings.Include(t => t.tlevel);
@@ -23,6 +25,7 @@ namespace GHWebApp.Controllers
         }
 
         // GET: ttrainings/Details/5
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.rApplicant, RolesUser.rManager)]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -38,6 +41,7 @@ namespace GHWebApp.Controllers
         }
 
         // GET: ttrainings/Create
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.rApplicant, RolesUser.rManager)]
         public ActionResult Create()
         {
             ViewBag.IDLevel = new SelectList(db.tlevel, "IDLevel", "Name");
@@ -49,6 +53,7 @@ namespace GHWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.rApplicant, RolesUser.rManager)]
         public ActionResult Create([Bind(Include = "IDTraining,Name,IDLevel,FromDate,ToDate,Place,Status")] ttrainings ttrainings)
         {
             if (ModelState.IsValid)
@@ -63,6 +68,7 @@ namespace GHWebApp.Controllers
         }
 
         // GET: ttrainings/Edit/5
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.rApplicant, RolesUser.rManager)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,6 +89,7 @@ namespace GHWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.rApplicant, RolesUser.rManager)]
         public ActionResult Edit([Bind(Include = "IDTraining,Name,IDLevel,FromDate,ToDate,Place,Status")] ttrainings ttrainings)
         {
             if (ModelState.IsValid)
@@ -96,6 +103,7 @@ namespace GHWebApp.Controllers
         }
 
         // GET: ttrainings/Delete/5
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.rApplicant, RolesUser.rManager)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -113,6 +121,7 @@ namespace GHWebApp.Controllers
         // POST: ttrainings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.rApplicant, RolesUser.rManager)]
         public ActionResult DeleteConfirmed(int id)
         {
             ttrainings ttrainings = db.ttrainings.Find(id);

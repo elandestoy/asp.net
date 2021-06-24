@@ -1,4 +1,5 @@
-﻿using GHWebApp.Models;
+﻿using GHWebApp.Helpers;
+using GHWebApp.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,13 @@ using System.Web.Mvc;
 
 namespace GHWebApp.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
     public class RolesController : Controller
     {
-     //   private Model1 context = new Model1();
-       ApplicationDbContext context;
+        public string rolName = "";
+        //   private Model1 context = new Model1();
+        ApplicationDbContext context;
+
 
         public RolesController()
         {
@@ -26,8 +29,22 @@ namespace GHWebApp.Controllers
         /// Get All Roles
         /// </summary>
         /// <returns></returns>
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Index()
         {
+            ViewBag.vRolName = "";
+
+            var reUserRol = GetRolByUser();
+
+
+            if (reUserRol != null)
+                ViewBag.vRolName = reUserRol;
+            else
+                ViewBag.vRolName = "Applicant";
+
+
+
+
             var Roles = context.Roles.ToList();
             return View(Roles);
         }
@@ -36,6 +53,7 @@ namespace GHWebApp.Controllers
         /// Create  a New role
         /// </summary>
         /// <returns></returns>
+         [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Create()
         {
             var Role = new IdentityRole();
@@ -48,6 +66,7 @@ namespace GHWebApp.Controllers
         /// <param name="Role"></param>
         /// <returns></returns>
         [HttpPost]
+         [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Create(IdentityRole Role)
         {
             context.Roles.Add(Role);
@@ -56,7 +75,55 @@ namespace GHWebApp.Controllers
         }
 
 
+        //get Role:
+        public string GetRolByUser()
+        {
+            ApplicationDbContext context;
+            context = new ApplicationDbContext();
+
+
+            if (User.Identity.IsAuthenticated)
+            {
+
+                var usersWithRoles = (from user in context.Users
+                                      from userRole in user.Roles
+                                      join role in context.Roles on userRole.RoleId equals
+                                      role.Id
+                                      where user.UserName == User.Identity.Name
+                                      select new UserViewModel()
+                                      {
+                                          Username = user.UserName,
+                                          Email = user.Email,
+                                          RoleName = role.Name
+                                      }).FirstOrDefault();
+
+                if (usersWithRoles != null)
+                {
+                    ViewBag.vRolName = usersWithRoles.RoleName;
+                    rolName = usersWithRoles.RoleName;
+                }
+                else
+                {
+                    ViewBag.vRolName = "";
+                    rolName = "";
+                }
+
+            }
+            return rolName;
+        }
+
     }
+
+
+    public class AuthorizeRolesAttribute : AuthorizeAttribute
+    {
+        public AuthorizeRolesAttribute(params string[] roles) : base()
+        {
+            Roles = string.Join(",", roles);
+        }
+    }
+
+
 }
 
 

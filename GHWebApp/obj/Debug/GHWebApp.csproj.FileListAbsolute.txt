@@ -426,7 +426,6 @@ C:\Users\User\Desktop\GHWebApp1\GHWebApp\GHWebApp\GHWebApp\bin\Microsoft.Owin.Se
 C:\Users\User\Desktop\GHWebApp1\GHWebApp\GHWebApp\GHWebApp\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\User\Desktop\GHWebApp1\GHWebApp\GHWebApp\GHWebApp\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\User\Desktop\GHWebApp1\GHWebApp\GHWebApp\GHWebApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\User\Desktop\GHWebApp1\GHWebApp\GHWebApp\GHWebApp\obj\Debug\GHWebApp.csprojAssemblyReference.cache
 C:\Users\User\Desktop\GHWebApp1\GHWebApp\GHWebApp\GHWebApp\obj\Debug\GHWebApp.csproj.CoreCompileInputs.cache
 C:\Users\User\Desktop\GHWebApp1\GHWebApp\GHWebApp\GHWebApp\obj\Debug\GHWebApp.csproj.CopyComplete
 C:\Users\User\Desktop\GHWebApp1\GHWebApp\GHWebApp\GHWebApp\obj\Debug\GHWebApp.dll

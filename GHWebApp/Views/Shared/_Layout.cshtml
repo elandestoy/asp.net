@@ -95,8 +95,8 @@
                         @Html.ActionLink("Home", "Index", "Home")
                         @Html.ActionLink("About", "About", "Home")
                         @Html.ActionLink("Contact", "Contact", "Home")
-                        
-                        @if (ViewBag.vRolName == "Manager")
+
+                        @if (Session["RolNa"] != null && Session["RolNa"].ToString() == "Manager")
                         {
                             <div class="mydropdown">
                                 <button class="mydropbtn">
@@ -125,8 +125,11 @@
                         </div>
                         <text>
 
-                            @if (ViewBag.vRolName == "Admin")
+                            @*@if (ViewBag.vRolName == "Admin")
+            {*@
+                            @if (Session["RolNa"] != null && Session["RolNa"].ToString() == "Admin")
                             {
+
 
                                 <div class="mydropdown">
                                     <button class="mydropbtn">

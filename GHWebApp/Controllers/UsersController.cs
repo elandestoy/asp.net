@@ -1,4 +1,5 @@
-﻿using GHWebApp.Models;
+﻿using GHWebApp.Helpers;
+using GHWebApp.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace GHWebApp.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
     public class UsersController : Controller
     {
      //   private Model1 context = new Model1();
@@ -26,6 +27,7 @@ namespace GHWebApp.Controllers
         /// Get All users
         /// </summary>
         /// <returns></returns>
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Index()
         {
             var users = context.Users.ToList();
@@ -36,6 +38,7 @@ namespace GHWebApp.Controllers
         /// Create  a New role
         /// </summary>
         /// <returns></returns>
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Create()
         {
             var _users = new IdentityUser();
@@ -48,6 +51,7 @@ namespace GHWebApp.Controllers
         /// <param name="Role"></param>
         /// <returns></returns>
         [HttpPost]
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Create(IdentityUser User_)
         {
             //context.Users.Add(User_);

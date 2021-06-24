@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using GHWebApp;
+using GHWebApp.Helpers;
 using GHWebApp.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -190,6 +191,7 @@ namespace GHWebApp.Controllers
         }
 
         // GET: temployees/Delete/5
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.rManager)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -209,11 +211,42 @@ namespace GHWebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
             temployees temployees = db.temployees.Find(id);
             db.temployees.Remove(temployees);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+       
+        // GET: temployees/Delete/5
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.rManager)]
+        public ActionResult Contract(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+
+            temployees temployees = db.temployees.Find(id);
+            if (temployees != null)
+            {
+                temployees.IDType = 1;
+                db.Entry(temployees).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            else
+            if (temployees == null)
+            {
+                return HttpNotFound();
+            }
+
+            // return View(temployees);
+            return RedirectToAction("Index");
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

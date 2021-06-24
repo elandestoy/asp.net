@@ -7,21 +7,24 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GHWebApp;
+using GHWebApp.Helpers;
 
 namespace GHWebApp.Controllers
 {
-    [Authorize]
+    [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
     public class trisksController : Controller
     {
         private Model1 db = new Model1();
 
         // GET: trisks
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Index()
         {
             return View(db.trisks.ToList());
         }
 
         // GET: trisks/Details/5
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +40,7 @@ namespace GHWebApp.Controllers
         }
 
         // GET: trisks/Create
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +51,7 @@ namespace GHWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Create([Bind(Include = "IDRisk,Name,Status")] trisks trisks)
         {
             if (ModelState.IsValid)
@@ -60,6 +65,7 @@ namespace GHWebApp.Controllers
         }
 
         // GET: trisks/Edit/5
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,6 +85,7 @@ namespace GHWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Edit([Bind(Include = "IDRisk,Name,Status")] trisks trisks)
         {
             if (ModelState.IsValid)
@@ -91,6 +98,7 @@ namespace GHWebApp.Controllers
         }
 
         // GET: trisks/Delete/5
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -108,6 +116,7 @@ namespace GHWebApp.Controllers
         // POST: trisks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult DeleteConfirmed(int id)
         {
             trisks trisks = db.trisks.Find(id);

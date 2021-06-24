@@ -7,21 +7,24 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GHWebApp;
+using GHWebApp.Helpers;
 
 namespace GHWebApp.Controllers
 {
-    [Authorize]
+    [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
     public class ttypesController : Controller
     {
         private Model1 db = new Model1();
 
         // GET: ttypes
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Index()
         {
             return View(db.ttype.ToList());
         }
 
         // GET: ttypes/Details/5
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +40,7 @@ namespace GHWebApp.Controllers
         }
 
         // GET: ttypes/Create
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +51,7 @@ namespace GHWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Create([Bind(Include = "IDType,Name,Status")] ttype ttype)
         {
             if (ModelState.IsValid)
@@ -60,6 +65,7 @@ namespace GHWebApp.Controllers
         }
 
         // GET: ttypes/Edit/5
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,6 +85,7 @@ namespace GHWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Edit([Bind(Include = "IDType,Name,Status")] ttype ttype)
         {
             if (ModelState.IsValid)
@@ -91,6 +98,7 @@ namespace GHWebApp.Controllers
         }
 
         // GET: ttypes/Delete/5
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -108,6 +116,7 @@ namespace GHWebApp.Controllers
         // POST: ttypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
         public ActionResult DeleteConfirmed(int id)
         {
             ttype ttype = db.ttype.Find(id);
