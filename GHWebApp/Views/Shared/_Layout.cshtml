@@ -95,21 +95,21 @@
                         @Html.ActionLink("Home", "Index", "Home")
                         @Html.ActionLink("About", "About", "Home")
                         @Html.ActionLink("Contact", "Contact", "Home")
-
+                        
                         @if (Session["RolNa"] != null && Session["RolNa"].ToString() == "Manager")
                         {
-                            <div class="mydropdown">
-                                <button class="mydropbtn">
-                                    Employee
-                                    <i class="fa fa-caret-down"></i>
-                                </button>
-                                <div class="mydropdown-content">
+                        <div class="mydropdown">
+                            <button class="mydropbtn">
+                                Employee
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="mydropdown-content">
 
-                                    @Html.ActionLink("Jobs", "", "tjobs")
-                                    @Html.ActionLink("Evaluate Applicant", "", "temployees")
+                                @Html.ActionLink("Jobs", "", "tjobs")
+                                @Html.ActionLink("Evaluate Applicant", "", "temployees")
 
-                                </div>
                             </div>
+                        </div>
                         }
                         <div class="mydropdown">
                             <button class="mydropbtn">
@@ -123,61 +123,83 @@
 
                             </div>
                         </div>
-                        <text>
+
+                        @if (Session["RolNa"] != null && Session["RolNa"].ToString() == "Admin")
+                        {
+
+
+                            <div class="mydropdown">
+                                <button class="mydropbtn">
+                                    Reports
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                                <div class="mydropdown-content">
+                                    @Html.ActionLink("Employees", "", "Reportes")
+                                    @*@Html.ActionLink("Pending Aproval", "PendingAproval", "Reportes")*@
+
+                                </div>
+                            </div>
+
+                        }
+
+
+
+                            <text>
+
+                                @*@if (ViewBag.vRolName == "Admin")
+                {*@
+                                @if (Session["RolNa"] != null && Session["RolNa"].ToString() == "Admin")
+                                {
+
+
+                                    <div class="mydropdown">
+                                        <button class="mydropbtn">
+                                            Settigs
+                                            <i class="fa fa-caret-down"></i>
+                                        </button>
+                                        <div class="mydropdown-content">
+                                            @Html.ActionLink("Degrees", "", "tlevels")
+                                            @Html.ActionLink("Departments", "", "tdepts")
+                                            @Html.ActionLink("Risks", "", "trisks")
+                                            @Html.ActionLink("Skills", "", "tskills")
+                                            @Html.ActionLink("Languages", "", "tlangs")
+                                            @Html.ActionLink("Roles", "", "Roles")
+                                            @Html.ActionLink("Users", "", "Users")
+
+
+                                        </div>
+                                    </div>
+
+                                }
+
+
+
+                            </text>
 
                             @*@if (ViewBag.vRolName == "Admin")
-            {*@
-                            @if (Session["RolNa"] != null && Session["RolNa"].ToString() == "Admin")
-                            {
+            {
 
-
-                                <div class="mydropdown">
-                                    <button class="mydropbtn">
-                                        Settigs
-                                        <i class="fa fa-caret-down"></i>
-                                    </button>
-                                    <div class="mydropdown-content">
-                                        @Html.ActionLink("Degrees", "", "tlevels")
-                                        @Html.ActionLink("Departments", "", "tdepts")
-                                        @Html.ActionLink("Risks", "", "trisks")
-                                        @Html.ActionLink("Skills", "", "tskills")
-                                        @Html.ActionLink("Languages", "", "tlangs")
-                                        @Html.ActionLink("Roles", "", "Roles")
-
-
-                                    </div>
-                                </div>
-
-                            }
-
-
-
-                        </text>
-
-                        @*@if (ViewBag.vRolName == "Admin")
-        {
-
-            <div class="mydropdown">
-                <button class="mydropbtn">
-                    Settigs
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="mydropdown-content">
-                    @Html.ActionLink("Degrees", "", "tlevels")
-                    @Html.ActionLink("Departments", "", "tdepts")
-                    @Html.ActionLink("Risks", "", "trisks")
-                    @Html.ActionLink("Skills", "", "tskills")
-                    @Html.ActionLink("Languages", "", "tlangs")
-                    @Html.ActionLink("Roles", "", "Roles")
-
-
-                </div>
-            </div>
-
-        }*@
+                <div class="mydropdown">
+                    <button class="mydropbtn">
+                        Settigs
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="mydropdown-content">
+                        @Html.ActionLink("Degrees", "", "tlevels")
+                        @Html.ActionLink("Departments", "", "tdepts")
+                        @Html.ActionLink("Risks", "", "trisks")
+                        @Html.ActionLink("Skills", "", "tskills")
+                        @Html.ActionLink("Languages", "", "tlangs")
+                        @Html.ActionLink("Roles", "", "Roles")
 
 
                     </div>
+                </div>
+
+            }*@
+
+
+                        </div>
 
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -195,5 +217,11 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    @*//datepic:*@
+    @*@Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    @Scripts.Render("~/bundles/jqueryDate")*@
+
 </body>
 </html>

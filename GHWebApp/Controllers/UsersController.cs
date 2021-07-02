@@ -28,11 +28,40 @@ namespace GHWebApp.Controllers
         /// </summary>
         /// <returns></returns>
         [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
-        public ActionResult Index()
+        public ActionResult Index1()
         {
             var users = context.Users.ToList();
             return View(users);
         }
+
+
+        /// <summary>
+        /// Get All users
+        /// </summary>
+        /// <returns></returns>
+        [AuthorizeRoles(RolesUser.Administrator, RolesUser.Assistant)]
+        public ActionResult Index()
+        {
+            var usersWithRoles = (from user in context.Users
+                                  from userRole in user.Roles
+                                  join role in context.Roles on userRole.RoleId equals
+                                  role.Id
+                                  select new UserViewModel()
+                                  {
+                                      Username = user.UserName,
+                                      Email = user.Email,
+                                      RoleName = role.Name,
+                                      PhoneNumber = user.PhoneNumber,
+                                      AccessFailedCount = user.AccessFailedCount
+
+                                  }).ToList();
+
+            return View(usersWithRoles);
+        }
+
+
+
+
 
         /// <summary>
         /// Create  a New role

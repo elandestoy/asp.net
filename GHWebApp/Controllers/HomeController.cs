@@ -34,10 +34,12 @@ namespace GHWebApp.Controllers
             if (usersWithRoles != null)
             {
                 ViewBag.vRolName = usersWithRoles.RoleName;
+                Session["RolNa"] = usersWithRoles.RoleName;
             }
             else
             {
                 ViewBag.vRolName = "";
+                Session["RolNa"] = "";
             }
 
 

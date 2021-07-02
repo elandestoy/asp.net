@@ -166,11 +166,14 @@ namespace GHWebApp.Controllers
             if (ModelState.IsValid)
             {
                 var reUserRol = GetRolByUser();
-               
+
 
 
                 if (reUserRol == "Applicant")
+                {
                     temployees.IDType = 2;
+                    temployees.UserName = User.Identity.Name;
+                }
 
                 if (reUserRol == "Manager")
                     temployees.ApprovedDate = DateTime.Now;

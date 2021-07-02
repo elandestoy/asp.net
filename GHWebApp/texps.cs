@@ -45,5 +45,11 @@ namespace GHWebApp
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual List<temployees> temployees { get; set; }
+
+
+        //username:   
+        [DisplayName("User Name")]
+        [StringLength(250)]
+        public string UserName { get; set; }
     }
 }

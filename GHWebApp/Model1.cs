@@ -37,7 +37,7 @@ namespace GHWebApp
 
             modelBuilder.Entity<temployees>()
                 .Property(e => e.RealID)
-                .HasPrecision(15, 0);
+               .IsUnicode(false);
 
             modelBuilder.Entity<temployees>()
                 .Property(e => e.FName)
@@ -147,5 +147,7 @@ namespace GHWebApp
                 .WithRequired(e => e.ttype)
                 .WillCascadeOnDelete(false);
         }
+
+        public System.Data.Entity.DbSet<GHWebApp.Models.EmployeeViewModel> EmployeeViewModels { get; set; }
     }
 }

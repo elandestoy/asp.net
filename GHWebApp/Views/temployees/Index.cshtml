@@ -99,7 +99,7 @@
             @Html.ActionLink("Details", "Details", new { id = item.IDEmployees }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.IDEmployees })
 
-            @if (item.ttype.Name == "Applicant" && Session["RolNa"] != null && Session["RolNa"].ToString() == "Manager" || Session["RolNa"].ToString() == "Admin")
+            @if (item.ttype.Name == "Applicant" && (Session["RolNa"] != null && Session["RolNa"].ToString() == "Manager" || Session["RolNa"].ToString() == "Admin"))
             {
                 @Html.ActionLink("Contratar", "Contract", new { id = item.IDEmployees })
             }

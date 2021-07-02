@@ -1,0 +1,228 @@
+﻿@model PagedList.IPagedList<GHWebApp.Models.EmployeeViewModel>
+@using PagedList.Mvc;
+@*@model IEnumerable<GHWebApp.temployees>*@
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Searching Employees";
+
+    var SearchBy = "";
+}
+
+@*<h2>Students</h2>*@
+
+
+
+<br />
+
+
+
+@using (Html.BeginForm("BuscarEmployees", "Reports", FormMethod.Post))
+{
+
+<p>
+
+
+    <div>
+        <h3 class="text-color">Buscar por:</h3>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label class="text-color">Opciones Busqueda: </label>
+                <select class="form-control" id="OpcionList" name="OpcionList" style="">
+                    <option value="">- Seleccionar -</option>
+                    <option value="Training">Trainings</option>
+                    <option value="Skills">Skills</option>
+                    <option value="Range">Rangos Fechas</option>
+                </select>
+            </div>
+
+            @*<div class="col-md-1">
+                    <label for="from" class="text-color"></label>
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                </div>*@
+
+            <div class="col-md-2">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model[0].ValoroBusqueda, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model[0].ValoroBusqueda, new { htmlAttributes = new { @class = "form-control", id = "SearchBy" } })
+                        @Html.ValidationMessageFor(model => model[0].ValoroBusqueda, "", new { @class = "text-danger" })
+
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="col-md-1">
+
+            </div>
+
+            @*<div class="col-sm-2">
+                    <label class="text-color">Rango de Fecha:</label>
+                </div>*@
+            <div class="col-md-3">
+                <label for="from" class="text-color">desde:</label>
+                <input class="form-control" type="text" id="fechaInicio" name="fechaInicio" style="" />
+            </div>
+
+
+
+            <div class="col-md-3">
+                <label for="to" class="text-color">hasta:</label>
+                <input class="form-control" type="text" id="fechaFinal" name="fechaFinal" style="" />
+            </div>
+
+        </div>
+        @*<div>
+                <br />
+                <button id="buscar" type="submit" name="find" class="btn btn-info"> Buscar </button>
+            </div>*@
+    </div>
+
+
+    <br />
+
+
+
+    @*Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)*@
+    @*<input type="submit" value="Submit" />*@
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.ActionLink("Buscar", "BuscarEmployeesFilter", "Reports", new
+    {
+        Page,
+        sortOrder = ViewBag.CurrentSort,
+    currentFilter = ViewBag.CurrentFilter,
+        vBuscarPor = Model,
+        Parametro1 = "p1",
+        Parametro2 = "test"
+    }, new { @class = "btn btn-primary" })
+
+
+    @Html.ActionLink("EXPORT TO EXCEL", "BuscarEmployeesFilter", "Reports", new { @class = "btn btn-primary" })+"?vBuscarPor="+$("SearchBy").val();
+
+
+</p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("First Name", "BuscarEmployees", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @*First Name*@
+        </th>
+        <th>
+            Last name
+        </th>
+        <th>
+            @Html.ActionLink("Salary", "BuscarEmployees", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+
+        <th>
+            Card Id
+        </th>
+
+
+        <th>
+            TrainingName
+        </th>
+
+
+
+
+        <th>
+
+        </th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RealID)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainingName)
+            </td>
+
+
+
+
+
+           
+        </tr>
+    }
+
+</table>
+
+<br />
+@using (Html.BeginForm("Export", "Reports", FormMethod.Post))
+{
+    <input type="submit" value="Export" />
+}
+
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("BuscarEmployees",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+
+            $("#fechaInicio").datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                onClose: function (selectedDate) {
+                    $("#fechaFinal").datepicker("option", "minDate", selectedDate);
+                }
+            });
+            $("#fechaFinal").datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                onClose: function (selectedDate) {
+                    $("#fechaInicio").datepicker("option", "maxDate", selectedDate);
+                }
+            });
+
+
+                });
+    </script>
+}
+
+
+
+

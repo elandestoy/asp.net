@@ -1,41 +1,81 @@
-﻿@*@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityUser>*@
+﻿@model IEnumerable<GHWebApp.Models.UserViewModel>
 
-@model GHWebApp.Models.UserViewModel
-
-@{ ViewBag.Title = "Index"; }
-
-<h2>Available Roles For Application</h2>
-
-@Html.ActionLink("Create User", "Create", "Users")
-
-<style type="text/css">
-    #tbrole, .c {
-        border: double;
-    }
-</style>
+@{ ViewBag.Title = "Users With Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 
-<div class="row">
-    <h4>Users</h4>
-    @foreach (var user in model.tdepts.Name)
-    {
-        <p>
-            <strong>
-                @user.Username <br />
-                @user.Email<br />
-                @user.RoleName
-            </strong>
-        </p>
-    }
-    <h4>Advisers</h4>
-    @foreach (var usera in Model.Admins)
-    {
-        <p>
-            <strong>
-                @usera.Username <br />
-                @usera.Email<br />
-                @usera.RoleName
-            </strong>
-        </p>
-    }
+@{ ViewBag.Title = "User List"; }
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="box-title">
+            <b>Users with Roles</b>
+        </h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="panel-body">
+        <table class="table table-hover table-bordered table-condensed" id="UsersWithRoles">
+            <thead>
+                <tr>
+                    <td><b>Username</b></td>
+                    <td><b>Email</b></td>
+                    <td><b>Roles</b></td>
+                    <td><b>PhoneNumber</b></td>
+                    <td><b>AccessFailedCount</b></td>
+                </tr>
+            </thead>
+            @foreach (var user in Model)
+            {
+        <tr>
+            <td>@user.Username</td>
+            <td>@user.Email</td>
+            <td>@user.RoleName</td>
+
+            <td>
+                @Html.DisplayFor(modelItem => user.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.AccessFailedCount)
+            </td>
+
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = user.Username }) |
+                @Html.ActionLink("Details", "Details", new { id = user.Username }) |
+                @Html.ActionLink("Delete", "Delete", new { id = user.Username })
+            </td>
+
+
+
+
+        </tr>}
+        </table>
+    </div>
+
+    <div class="panel-footer">
+        <p class="box-title"><b>Total Users till @String.Format("{0 : dddd, MMMM d, yyyy}", DateTime.Now)  : </b><span class="label label-primary">@Model.Count()</span></p>
+    </div>
 </div>
+
+
+@section scripts{
+    <script>
+        $(function () {
+            //$("#example1").DataTable();
+            $('#UsersWithRoles').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true
+            });
+        });</script>
+}

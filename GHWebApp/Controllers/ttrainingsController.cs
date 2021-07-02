@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using GHWebApp;
 using GHWebApp.Helpers;
+using GHWebApp.Models;
 
 namespace GHWebApp.Controllers
 {
@@ -15,13 +16,26 @@ namespace GHWebApp.Controllers
     public class ttrainingsController : Controller
     {
         private Model1 db = new Model1();
+        private string reUserRol;
+
 
         // GET: ttrainings
         [AuthorizeRoles(RolesUser.Administrator, RolesUser.rApplicant, RolesUser.rManager)]
         public ActionResult Index()
         {
-            var ttrainings = db.ttrainings.Include(t => t.tlevel);
-            return View(ttrainings.ToList());
+
+
+            IQueryable<ttrainings> TrainingsJob;
+
+             reUserRol = GetRolByUser();
+            if (reUserRol == "Applicant")
+                TrainingsJob = db.ttrainings.Include(t => t.tlevel).Where(w => w.UserName == User.Identity.Name);
+            else
+                TrainingsJob = db.ttrainings.Include(t => t.tlevel);
+
+
+          //  var ttrainings = db.ttrainings.Include(t => t.tlevel);
+            return View(TrainingsJob);
         }
 
         // GET: ttrainings/Details/5
@@ -58,6 +72,8 @@ namespace GHWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                ttrainings.UserName = User.Identity.Name;
+
                 db.ttrainings.Add(ttrainings);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -92,6 +108,12 @@ namespace GHWebApp.Controllers
         [AuthorizeRoles(RolesUser.Administrator, RolesUser.rApplicant, RolesUser.rManager)]
         public ActionResult Edit([Bind(Include = "IDTraining,Name,IDLevel,FromDate,ToDate,Place,Status")] ttrainings ttrainings)
         {
+
+            reUserRol = GetRolByUser();
+            if (reUserRol == "Applicant")
+                ttrainings.UserName = User.Identity.Name;
+
+
             if (ModelState.IsValid)
             {
                 db.Entry(ttrainings).State = EntityState.Modified;
@@ -128,6 +150,43 @@ namespace GHWebApp.Controllers
             db.ttrainings.Remove(ttrainings);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        //get Role:
+        public string GetRolByUser()
+        {
+            ApplicationDbContext context;
+            context = new ApplicationDbContext();
+
+            var rUser = "";
+            if (User.Identity.IsAuthenticated)
+            {
+
+                var usersWithRoles = (from user in context.Users
+                                      from userRole in user.Roles
+                                      join role in context.Roles on userRole.RoleId equals
+                                      role.Id
+                                      where user.UserName == User.Identity.Name
+                                      select new UserViewModel()
+                                      {
+                                          Username = user.UserName,
+                                          Email = user.Email,
+                                          RoleName = role.Name
+                                      }).FirstOrDefault();
+
+                if (usersWithRoles != null)
+                {
+                    ViewBag.vRolName = usersWithRoles.RoleName;
+                    rUser = usersWithRoles.RoleName;
+                }
+                else
+                {
+                    ViewBag.vRolName = "";
+                    rUser = "";
+                }
+
+            }
+            return rUser;
         }
 
         protected override void Dispose(bool disposing)

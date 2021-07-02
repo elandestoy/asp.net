@@ -13,8 +13,9 @@ namespace GHWebApp
         public int IDEmployees { get; set; }
 
         [DisplayName("Identification Card Number")]
-        [Column(TypeName = "numeric")]
-        public decimal RealID { get; set; }
+        [Column(TypeName = "nvarchar")]
+        [StringLength(11, ErrorMessage = "Number must be between 9 to 11", MinimumLength = 9)]
+        public string RealID { get; set; }
 
         [Required]
         [DisplayName("First Name")]

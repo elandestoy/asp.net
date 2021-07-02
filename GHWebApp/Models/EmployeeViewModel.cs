@@ -15,18 +15,24 @@ namespace GHWebApp.Models
         [Key]
         public int IDEmployees { get; set; }
 
-        [DisplayName("Identification Card Number")]
-        [Column(TypeName = "numeric")]
-        public decimal RealID { get; set; }
+        //[DisplayName("Identification Card Number")]
+        //[Column(TypeName = "numeric")]
+        //public decimal RealID { get; set; }
+
+
+        [DisplayName("Identification Card Number")]      
+        [StringLength(11, ErrorMessage = "Number must be between 9 to 11", MinimumLength = 9)]
+        public string RealID { get; set; }
+
 
         [Required]
         [DisplayName("First Name")]
-        [StringLength(20, ErrorMessage = "Training Name must be between 3 to 20", MinimumLength = 3)]
+
         public string FName { get; set; }
 
         [Required]
         [DisplayName("Last Name")]
-        [StringLength(20, ErrorMessage = "Last Name must be between 3 to 20", MinimumLength = 3)]
+
         public string LName { get; set; }
 
         [DisplayName("Position")]
@@ -77,23 +83,31 @@ namespace GHWebApp.Models
         ////username:   
         //[DisplayName("User Name")]
         //[StringLength(250)]
-        //public string UserName { get; set; }
+        public string UserName { get; set; }
 
-        
+        public string ValoroBusqueda { get; set; }
 
-        public static EmployeeViewModel MapearComoViewModel(temployees entidad)
-        {
-            return Mapper.Map<temployees, EmployeeViewModel>(entidad);
-        }
-        /// <summary>
-        /// Mappea un modelo de datos EmployeeViewModel a una entidad de tipo Employee.
-        /// </summary>
-        /// <param name="modeloVista">The modelo vista.</param>
-        /// <returns></returns>
-        public static temployees MapearComoEntidad(EmployeeViewModel modeloVista)
-        {
-            return Mapper.Map<EmployeeViewModel, temployees>(modeloVista);
-        }
+        public string DescriptionApproved { get; set; }
+        public DateTime ApprovedDate {get; set;}
+        public string SkillsName { get; set; }
+        public string TrainingName { get; set; }
+        public string TypeName { get; set; }
+
+
+
+        //public static EmployeeViewModel MapearComoViewModel(temployees entidad)
+        //{
+        //    return Mapper.Map<temployees, EmployeeViewModel>(entidad);
+        //}
+        ///// <summary>
+        ///// Mappea un modelo de datos EmployeeViewModel a una entidad de tipo Employee.
+        ///// </summary>
+        ///// <param name="modeloVista">The modelo vista.</param>
+        ///// <returns></returns>
+        //public static temployees MapearComoEntidad(EmployeeViewModel modeloVista)
+        //{
+        //    return Mapper.Map<EmployeeViewModel, temployees>(modeloVista);
+        //}
     }
 }
 

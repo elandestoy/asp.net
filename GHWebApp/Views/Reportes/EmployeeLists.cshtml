@@ -1,0 +1,345 @@
+﻿@model IEnumerable<GHWebApp.temployees>
+
+@{
+    ViewBag.Title = "Index";
+
+
+    //Para elegir por que buscar:
+
+    var OpcionList = new[] {
+           new SelectListItem { Value = "0", Text = "-Seleccionar" },
+        new SelectListItem { Value = "Training", Text = "Training" },
+        new SelectListItem { Value = "Skills", Text = "Skills" },
+         new SelectListItem { Value = "Range", Text = "Rango Fecha" },
+          new SelectListItem { Value = "Pending", Text = "Pending Aproval" }
+
+         
+
+
+
+    };
+
+
+}
+
+<h2>Listado de Empleados</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+
+
+@*@using (Html.BeginForm("IndexBuscar", "Reportes"))
+    {
+        <input type="text" name="textoBusc" />
+        <input type="submit" value="Check your value!">*@
+
+
+@using (Html.BeginForm("IndexBuscar", "Reportes"))
+{
+
+
+
+    <div>
+        @*<h3 class="text-color">Busqueda de empleados</h3>*@
+
+        <div class="row">
+            <div class="col-md-3">
+                <label class="text-color">Opciones Busqueda: </label>
+
+                @Html.DropDownList("buscarPor", OpcionList, new { @class = "form-control" })
+            </div>
+
+
+
+            <div class="col-md-2">
+                <label for="from" class="text-color">Valor:</label>
+                <input class="form-control" type="text" name="textoBuscar" />
+            </div>
+
+
+
+            @*<div class="col-sm-2">
+                    <label class="text-color">Rango de Fecha:</label>
+                </div>*@
+            <div class="col-md-2">
+                <label for="from" class="text-color">Desde:</label>
+                <input class="form-control" type="text" id="fechaInicio" name="fechaInicio" style="" />
+            </div>
+
+
+
+            <div class="col-md-2">
+                <label for="to" class="text-color">Hasta:</label>
+                <input class="form-control" type="text" id="fechaFinal" name="fechaFinal" style="" />
+            </div>
+
+        </div>
+        @*<div>
+                <br />
+                <button id="buscar" type="submit" name="find" class="btn btn-info"> Buscar </button>
+            </div>*@
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-info" onclick="submit()">Buscar</button>
+
+            
+        </div>
+
+
+        @*<div class="col-md-2">
+
+            <button id="exportExcel" class="btn btn-info" onclick="submitexport()">Export to excel</button>
+        </div>*@
+
+    </div>
+
+    <br />
+
+    @*<table class="table">*@
+        <table class="table table-hover table-bordered table-condensed" id="tableList">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.tdepts.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.texps.JobName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tjobs.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tlangs.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tskills.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ttrainings.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ttype.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RealID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Salary)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ApprovedDate)
+                </th>
+
+                @*<th>
+            @Html.DisplayNameFor(model => model.Recommended)
+        </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.tdepts.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.texps.JobName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tjobs.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tlangs.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tskills.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ttrainings.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ttype.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RealID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApprovedDate)
+            </td>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.Recommended)
+        </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+
+        </tr>
+            }
+
+        </table>
+
+
+
+        }
+
+
+        @using (Html.BeginForm("ExportRedirect", "Reportes", FormMethod.Post))
+        {
+            <div class="col-md-2">
+
+                <button class="btn btn-info" onclick="submitexport()">Export to excel</button>
+            </div>
+        }
+
+
+        @*@using (Html.BeginForm("Export", "Reports", FormMethod.Post))
+        {*@
+        @*<input type="submit" value="Export" />*@
+
+
+
+        @*}*@
+
+
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+
+            @*@Scripts.Render("~/bundles/jqueryui")
+            @Styles.Render("~/Content/cssjqryUi")
+            @Scripts.Render("~/Content/jqueryDate")*@
+
+            @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+            <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+            <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+            <script type="text/javascript">
+
+
+                //$(function () {
+                //    //$("#example1").DataTable();
+                //    $('#tableList').DataTable({
+                //        "paging": true,
+                //        "lengthChange": true,
+                //        "searching": true,
+                //        "ordering": true,
+                //        "info": true,
+                //        "autoWidth": true
+                //    });
+                //});
+
+
+
+                $(document).ready(function () {
+
+                    $("#fechaInicio").datepicker({
+                        defaultDate: "+0w",
+                        changeMonth: true,
+                        numberOfMonths: 1,
+                        onClose: function (selectedDate) {
+                            $("#fechaFinal").datepicker("option", "minDate", selectedDate);
+                        }
+                    });
+                    $("#fechaFinal").datepicker({
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfMonths: 1,
+                        onClose: function (selectedDate) {
+                            $("#fechaInicio").datepicker("option", "maxDate", selectedDate);
+                        }
+                    });
+
+
+                });
+
+                //submit data with jQuery AJAX
+                function submit() {
+                    debugger;
+                    var data = {
+                        TextBoxStringData: $('#buscarPor').val(),
+                        TextBoxStringData: $('#textoBuscar').val(),
+
+                        TextBoxStringData: $("#fechaInicio").selectedDate,
+                        TextBoxStringData: $('#fechaFinal').val()
+
+
+
+                        //TextBoxIntData: $('#buscarPor').val(),
+                        //CheckboxData: $('#checkbox').is(':checked')
+                    };
+
+
+                    $.post("/Reportes/IndexBuscar", { formData: data },
+                        function () {
+                            alert('Successfully posted to server')
+                        });
+
+
+
+                }
+
+
+                //export to excell:
+                function submitexport() {
+
+                    var dataExp = {
+                        TextBoxStringData: $('#buscarPor').val(),
+                        TextBoxStringData: $('#textoBuscar').val(),
+
+                        TextBoxStringData: $("#fechaInicio").selectedDate,
+                        TextBoxStringData: $('#fechaFinal').val()
+
+                    };
+
+                    $.post("/Reportes/ExportRedirect", { formData: dataExp },
+                        function () { alert('Successfully posted to server') });
+                }
+
+
+
+                    //if (varRes == 1) {
+                    //    $.post("/Reportes/IndexBuscar", { formData: data },
+                    //        function () { alert('Successfully posted to server') });
+                    //}
+                    //else
+                    //    if (varRes == 2) {
+                    //        $.post("/Reportes/ExportRedirect", { formData: data },
+                    //            function () { alert('Successfully posted to server') });
+                    //    }
+
+
+
+
+
+            </script>
+
+
+
+
+        }

@@ -45,5 +45,11 @@ namespace GHWebApp
         public virtual List<temployees> temployees { get; set; }
 
         public virtual tlevel tlevel { get; set; }
+
+
+        //username:   
+        [DisplayName("User Name")]
+        [StringLength(250)]
+        public string UserName { get; set; }
     }
 }
